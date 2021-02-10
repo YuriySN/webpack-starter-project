@@ -1,11 +1,16 @@
-// import { createApp } from 'vue'
-// // import App from './App.vue'
-
 import './js/common'
 import './index.html'
 import './css/main.css'
 import './scss/main.scss'
 
-// window.Vue = require('vue')
-// Vue.component('example-component', require('./components/Example.vue').default)
 
+
+import { createApp } from 'vue'
+import App from './App.vue'
+
+createApp(App).mount('#app')
+
+// const app = createApp({});
+// app.mount("#app");
+
+// vue-template-compiler (в vue 3 заменен на @vue/compiler-sfc)

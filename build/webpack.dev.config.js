@@ -16,12 +16,7 @@ module.exports = merge(webpackConfiguration, {
     port: 8080,
   },
   module: {
-    rules: [
-      // {
-      //   test: /\.((c|sa|sc)ss)$/i,
-      //   use: ['vue-style-loader']
-      // }
-    ]
+    rules: []
   },
   plugins: []
 });
