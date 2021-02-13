@@ -3,7 +3,6 @@ const webpackConfiguration = require('./webpack.config');
 
 const { merge } = require('webpack-merge');
 
-
 module.exports = merge(webpackConfiguration, {
   mode: 'development',
   devtool: 'eval-cheap-source-map',
@@ -13,6 +12,7 @@ module.exports = merge(webpackConfiguration, {
     publicPath: '/',
     // open: true,
     hot: true,
+    inline: true,
     port: 8080,
   },
   module: {
