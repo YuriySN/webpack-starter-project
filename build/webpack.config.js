@@ -30,11 +30,28 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader'
+        use: ['vue-loader']
       },
+      // {
+      //   test: /\.html$/,
+      //   use: ['html-loader']
+      // },
+      // {
+      //   test: /\.pug$/,
+      //   // use: ['pug-loader']
+      //   use: ['raw-loader', 'pug-plain-loader']
+      // },
       {
-        test: /\.html$/,
-        use: ['html-loader']
+        test: /\.pug$/,
+        oneOf: [
+          {
+            resourceQuery: /^\?vue/,
+            use: ['pug-plain-loader']
+          },
+          {
+            use: ['raw-loader', 'pug-plain-loader']
+          }
+        ]
       },
       {
         test: /\.((c|sa|sc)ss)$/i,
@@ -47,7 +64,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(paths.source, 'index.html'),
+      template: path.resolve(paths.source, './pug/index.pug'),
       filename: 'index.html'
     }),
     new CopyWebpackPlugin({
