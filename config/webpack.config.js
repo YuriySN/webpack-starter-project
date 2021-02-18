@@ -12,14 +12,34 @@ const isDev = process.env.NODE_ENV === 'development'
 module.exports = {
 
   entry: {
-    main: path.resolve(paths.source, 'index.js')
+    main: path.resolve(paths.source, './js/index.js')
   },
 
   output: {
     path: paths.output,
-    filename: '[name].js',
+    filename: 'js/[name].[hash].js',
     publicPath: './'
   },
+
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       commons: {
+  //         name: 'vendors',
+  //         test: /[\\/]node_modules[\\/]/,
+  //         chunks: 'all',
+  //       },
+  //     },
+  //   },
+  // },
+
+  optimization: {
+    splitChunks: {
+      name: 'vendors',
+      chunks: 'all',
+    },
+  },
+
 
   module: {
     rules: [
@@ -55,7 +75,7 @@ module.exports = {
       },
       {
         test: /\.((c|sa|sc)ss)$/i,
-          use: isDev?['vue-style-loader', 'style-loader', 'css-loader', 'postcss-loader', 'sass-loader']:[MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
+          use: isDev ? ['vue-style-loader', 'style-loader', 'css-loader', 'postcss-loader', 'sass-loader'] : [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
       }
     ],
   },
@@ -65,18 +85,19 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(paths.source, './pug/index.pug'),
-      filename: 'index.html'
+      filename: 'index.html',
+      favicon: paths.source + '/assets/img/favicon.ico'
     }),
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(paths.source, 'img'),
-          to: path.resolve(paths.output, 'img')
+          from: path.resolve(paths.source, 'assets'),
+          to: path.resolve(paths.output, 'static')
         }
       ]
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css'
+      filename: 'static/css/[name].[hash].css'
     })
   ]
 };
