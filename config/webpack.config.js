@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require("vue-loader");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // перенести в основной конфик в конце
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -17,21 +17,8 @@ module.exports = {
 
   output: {
     path: paths.output,
-    filename: 'js/[name].[hash].js',
-    publicPath: './'
+    filename: 'static/js/[name].js'
   },
-
-  // optimization: {
-  //   splitChunks: {
-  //     cacheGroups: {
-  //       commons: {
-  //         name: 'vendors',
-  //         test: /[\\/]node_modules[\\/]/,
-  //         chunks: 'all',
-  //       },
-  //     },
-  //   },
-  // },
 
   optimization: {
     splitChunks: {
@@ -39,7 +26,6 @@ module.exports = {
       chunks: 'all',
     },
   },
-
 
   module: {
     rules: [
@@ -52,15 +38,6 @@ module.exports = {
         test: /\.vue$/,
         use: ['vue-loader']
       },
-      // {
-      //   test: /\.html$/,
-      //   use: ['html-loader']
-      // },
-      // {
-      //   test: /\.pug$/,
-      //   // use: ['pug-loader']
-      //   use: ['raw-loader', 'pug-plain-loader']
-      // },
       {
         test: /\.pug$/,
         oneOf: [
@@ -81,13 +58,21 @@ module.exports = {
   },
 
   plugins: [
+    new CleanWebpackPlugin(), // перенести в основной конфик в конце
     new VueLoaderPlugin(),
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(paths.source, './pug/index.pug'),
-      filename: 'index.html',
-      favicon: paths.source + '/assets/img/favicon.ico'
+      filename: './templates/index.html',
+      // filename: 'index.html',
+      // favicon: paths.source + '/assets/img/favicon.ico',
     }),
+
+    // ...PAGES.map((page) => new HtmlWebpackPlugin({
+    //   template: `${PAGES_DIR}/${page}`,
+    //   filename: `./${page}`,
+    //   inject: true,
+    // })), // создание нескольких html страниц
+
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -97,7 +82,7 @@ module.exports = {
       ]
     }),
     new MiniCssExtractPlugin({
-      filename: 'static/css/[name].[hash].css'
+      filename: 'static/css/[name].css'
     })
   ]
 };

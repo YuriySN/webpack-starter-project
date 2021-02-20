@@ -3,26 +3,18 @@ const webpackConfiguration = require('./webpack.config');
 const { merge } = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require ('css-minimizer-webpack-plugin');
-// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // перенести в основной конфик в конце
 
 module.exports = merge(webpackConfiguration, {
   mode: 'production',
   devtool: false,
   target: 'browserslist',
-  // devtool: 'inline-source-map',
   module: {
-    rules: [
-      // {
-      //   test: /\.((c|sa|sc)ss)$/i,
-      //     use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
-      // }
-    ]
+    rules: []
   },
   plugins: [
-    // new MiniCssExtractPlugin({
-    //   filename: 'css/[name].css'
-    // })
+    // new CleanWebpackPlugin(), // перенести в основной конфик в конце
     new ImageMinimizerPlugin({
       minimizerOptions: {
         plugins: [
@@ -55,4 +47,4 @@ module.exports = merge(webpackConfiguration, {
     maxEntrypointSize: 512000,
     maxAssetSize: 512000
   } 
-});
+})
