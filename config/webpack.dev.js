@@ -1,22 +1,27 @@
+const path = require('path');
 const paths = require('./paths');
 const webpackConfiguration = require('./webpack.config');
 
 const { merge } = require('webpack-merge');
 
+// let log = path.resolve(paths.output, 'templates')
+// console.log(111111111111)
+// console.log(log)
+
 module.exports = merge(webpackConfiguration, {
   mode: 'development',
-  devtool: 'eval-cheap-source-map',
+  devtool: 'inline-source-map',
   target: 'web',
   devServer: {
-    contentBase: paths.output,
     publicPath: '/',
-    // open: true,
+    contentBase: paths.output,
+    openPage: 'templates/index.html',
+    open: true,
     hot: true,
-    inline: true,
     port: 8080,
   },
   module: {
     rules: []
   },
   plugins: []
-});
+})

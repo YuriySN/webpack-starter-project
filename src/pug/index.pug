@@ -1,16 +1,13 @@
-include ./includes/bemto.pug
+extends ./base.pug
 
-doctype html
-html
-  head
-    meta(charset="utf-8")
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title Webpack 5 + pug
-  body
+block content
+  main.main
     section
       h1
         | Webpack
+      a(href="http://localhost:8080/templates/second_page.html") second page
     section#app
-    +b.page
-      +e.elem
-    
+    section.bemto
+      +b.page
+        +e.elem
+          h3 bemto
