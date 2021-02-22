@@ -4,7 +4,6 @@ const { merge } = require('webpack-merge');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require ('css-minimizer-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // перенести в основной конфик в конце
 
 module.exports = merge(webpackConfiguration, {
   mode: 'production',
@@ -14,7 +13,6 @@ module.exports = merge(webpackConfiguration, {
     rules: []
   },
   plugins: [
-    // new CleanWebpackPlugin(), // перенести в основной конфик в конце
     new ImageMinimizerPlugin({
       minimizerOptions: {
         plugins: [
@@ -43,7 +41,7 @@ module.exports = merge(webpackConfiguration, {
     ],
   },
   performance: { 
-    // hints: false, // отключить предупреждения
+    hints: false, // отключить предупреждения
     maxEntrypointSize: 512000,
     maxAssetSize: 512000
   } 

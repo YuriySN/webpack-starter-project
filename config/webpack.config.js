@@ -1,6 +1,7 @@
 const path = require('path');
 const paths = require('./paths');
 
+const webpack = require('webpack');
 const fs = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -9,13 +10,8 @@ const { VueLoaderPlugin } = require("vue-loader");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development'
-
 const PAGES_DIR = path.resolve(paths.source, 'pug', 'pages')
 const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'))
-
-// console.log(111111111111)
-// console.log(PAGES_DIR)
-// console.log(PAGES)
 
 module.exports = {
 
@@ -70,7 +66,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(paths.source, './pug/index.pug'),
-      filename: 'templates/index.html',
+      filename: './templates/index.html',
     }),
 
     ...PAGES.map((page) => new HtmlWebpackPlugin({
@@ -87,8 +83,14 @@ module.exports = {
         }
       ]
     }),
+
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].css'
+    }),
+
+    new webpack.DefinePlugin({
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false
     })
   ]
 };
