@@ -22,5 +22,5 @@ module.exports = merge(webpackConfiguration, {
   },
 
   plugins: [
-  ],  
+  ],
 })

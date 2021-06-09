@@ -19,16 +19,7 @@ module.exports = merge(webpackConfiguration, {
           ['gifsicle', { interlaced: true }],
           ['jpegtran', { progressive: true }],
           ['optipng', { optimizationLevel: 5 }],
-          [
-            'svgo',
-            {
-              plugins: [
-                {
-                  removeViewBox: false,
-                },
-              ],
-            },
-          ],
+          ['svgo', { removeViewBox: false }],
         ],
       },
     }),
@@ -40,9 +31,9 @@ module.exports = merge(webpackConfiguration, {
       new CssMinimizerPlugin()
     ],
   },
-  performance: { 
+  performance: {
     hints: false, // отключить предупреждения
     maxEntrypointSize: 512000,
     maxAssetSize: 512000
-  } 
+  }
 })
