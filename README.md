@@ -1,2 +1,2 @@
 # webpack-starter-project
-webpack 5, babel, scss, postcss, pug, bemto.pug
+webpack 5, babel, scss, postcss, pug
